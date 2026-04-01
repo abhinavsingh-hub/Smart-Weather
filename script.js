@@ -40,6 +40,23 @@ const weatherIcons = {
   Haze: "fa-smog",
 };
 
+function updateUI(data) {
+    const weather = data.weather[0].main;
+
+    document.getElementById("city").innerText = data.name;
+    document.getElementById("temp").innerText = `${data.main.temp}°C`;
+    document.getElementById("condition").innerText = weather;
+
+    document.getElementById("feels").innerText = `${data.main.feels_like}°C`;
+    document.getElementById("humidity").innerText = `${data.main.humidity}%`;
+    document.getElementById("wind").innerText = `${data.wind.speed} m/s`;
+
+    const icon = weatherIcons[weather] || "fa-cloud";
+    document.getElementById("weatherIcon").className = `fa-solid ${icon}`;
+
+    updateBackground(weather); 
+}
+
 /* Style recommendation */
 function getStyleAdvice(temp, condition) {
   if (condition === "Rain") return "Carry an umbrella ☔";
@@ -88,6 +105,34 @@ async function fetchWeather(city) {
   `;
 }
 
+function getUserLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (pos) => {
+                const lat = pos.coords.latitude;
+                const lon = pos.coords.longitude;
+                fetchWeatherByCoords(lat, lon);
+            },
+            () => {
+                alert("Location permission denied ❌");
+            }
+        );
+    }
+}
+
+async function fetchWeatherByCoords(lat, lon) {
+    const apiKey = API_KEY;
+
+    const res = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
+    );
+
+    const data = await res.json();
+
+    updateUI(data);
+}
+
+
 document.querySelectorAll(".glass-btn").forEach((btn) => {
   btn.addEventListener("mousemove", (e) => {
     const rect = btn.getBoundingClientRect();
@@ -107,81 +152,21 @@ document.querySelectorAll(".glass-btn").forEach((btn) => {
   });
 });
 
-// {coord: {…}, weather: Array(1), base: 'stations', main: {…}, visibility: 5000, …}
-// base
-// : 
-// "stations"
-// clouds
-// : 
-// {all: 20}
-// cod
-// : 
-// 200
-// coord
-// : 
-// {lon: 80.9167, lat: 26.85}
-// dt
-// : 
-// 1775053207
-// id
-// : 
-// 1264733
-// main
-// : 
-// feels_like
-// : 
-// 30.49
-// grnd_level
-// : 
-// 992
-// humidity
-// : 
-// 37
-// pressure
-// : 
-// 1006
-// sea_level
-// : 
-// 1006
-// temp
-// : 
-// 30.99
-// temp_max
-// : 
-// 30.99
-// temp_min
-// : 
-// 30.99
-// [[Prototype]]
-// : 
-// Object
-// name
-// : 
-// "Lucknow"
-// sys
-// : 
-// {type: 1, id: 9176, country: 'IN', sunrise: 1775003246, sunset: 1775047973}
-// timezone
-// : 
-// 19800
-// visibility
-// : 
-// 5000
-// weather
-// : 
-// Array(1)
-// 0
-// : 
-// {id: 721, main: 'Haze', description: 'haze', icon: '50n'}
-// length
-// : 
-// 1
-// [[Prototype]]
-// : 
-// Array(0)
-// wind
-// : 
-// {speed: 2.57, deg: 330}
-// [[Prototype]]
-// : 
-// Object
+document.body.style.background = "linear-gradient(...)";
+
+function updateBackground(weather) {
+    const overlay = document.getElementById("bg-overlay");
+
+    const themes = {
+        Clear: "radial-gradient(circle at center, rgba(255,200,0,0.2), transparent 70%)",
+        Clouds: "radial-gradient(circle, rgba(200,200,200,0.15), transparent 70%)",
+        Rain: "radial-gradient(circle, rgba(0,150,255,0.2), transparent 70%)",
+        Thunderstorm: "radial-gradient(circle, rgba(100,0,255,0.25), transparent 70%)",
+        Snow: "radial-gradient(circle, rgba(255,255,255,0.25), transparent 70%)",
+        Haze: "radial-gradient(circle, rgba(180,180,180,0.2), transparent 70%)",
+    };
+
+    overlay.style.background = themes[weather] || "transparent";
+}
+
+getUserLocation();

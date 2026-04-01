@@ -234,3 +234,63 @@ button:hover {
     left: 80%;
     transform: translate(-50%, -50%);
 }
+
+.weather-dashboard {
+    position: fixed;
+    left: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 300px;
+    padding: 25px;
+    border-radius: 24px;
+
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(255,255,255,0.1);
+
+    color: black;
+    z-index: 20;
+}
+
+.wd-top {
+    margin-bottom: 20px;
+}
+
+.wd-top h2 {
+    font-size: 1.5rem;
+}
+
+.wd-main {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.wd-main i {
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
+.wd-main h1 {
+    font-size: 2.5rem;
+}
+
+.wd-extra {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.wd-extra div {
+    text-align: center;
+}
+
+#bg-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+
+    background: transparent;
+    transition: background 1s ease;
+}
