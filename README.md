@@ -62,6 +62,9 @@ This API provides:
 - Day/Night mode based on time
 - Smooth transitions and animations
 - Interactive forecast cards (hover effects)
+- The landing page is inspired and customised on spline using its 3D space
+  <img width="1512" height="982" alt="Screenshot 2026-04-01 at 11 54 39 PM" src="https://github.com/user-attachments/assets/c089f6a6-727e-45ae-80e9-4cbd3a814afd" />
+
 
 ---
 
@@ -83,6 +86,7 @@ This API provides:
 - CSS (or Tailwind / Bootstrap)
 - JavaScript (Vanilla JS)
 - OpenWeatherMap API
+- Spline 3D
 
 ---
 
@@ -92,6 +96,8 @@ project-folder/
 │── style.css
 │── script.js
 │── README.md
+
+additional modules and nodes are added to read .spline file
 
 ---
 
