@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Weather Dashboard | Interactive 3D Bot</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 <body>
     <div id="loader">
@@ -13,11 +14,11 @@
     </div>
 
     <!-- 3D Canvas -->
-    <canvas id="canvas3d"></canvas>
+    <canvas id="canvas3d" style="z-index: -1;"></canvas>
 
     <!-- Overlay UI -->
     <header>
-        <div class="logo">SmartWeather</div>
+        <div class="logo">WEADU</div>
         <nav>
             <ul>
                 <li><a href="#" class="active">HOME</a></li>
@@ -26,7 +27,25 @@
             </ul>
         </nav>
     </header>
-    </main>
+
+    <div class="sidebar">
+    <button class="glass-btn" data-action="search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <span>Search</span>
+    </button>
+
+    <button class="glass-btn" data-action="style">
+      <i class="fa-solid fa-shirt"></i>
+      <span>Style</span>
+    </button>
+
+    <button class="glass-btn" data-action="forecast">
+      <i class="fa-solid fa-calendar-days"></i>
+      <span>Forecast</span>
+    </button>
+  </div>
+
+  <div id="content" style="z-index: 2;"></div>
 
     <script type="module" src="script.js"></script>
 </body>
