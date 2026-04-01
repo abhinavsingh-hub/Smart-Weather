@@ -226,3 +226,10 @@ button:hover {
   font-size: 18px;
 }
 
+#content{
+    color: black;
+    position: fixed;
+    top: 50%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+}

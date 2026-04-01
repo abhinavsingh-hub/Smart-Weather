@@ -107,81 +107,81 @@ document.querySelectorAll(".glass-btn").forEach((btn) => {
   });
 });
 
-{coord: {…}, weather: Array(1), base: 'stations', main: {…}, visibility: 5000, …}
-base
-: 
-"stations"
-clouds
-: 
-{all: 20}
-cod
-: 
-200
-coord
-: 
-{lon: 80.9167, lat: 26.85}
-dt
-: 
-1775053207
-id
-: 
-1264733
-main
-: 
-feels_like
-: 
-30.49
-grnd_level
-: 
-992
-humidity
-: 
-37
-pressure
-: 
-1006
-sea_level
-: 
-1006
-temp
-: 
-30.99
-temp_max
-: 
-30.99
-temp_min
-: 
-30.99
-[[Prototype]]
-: 
-Object
-name
-: 
-"Lucknow"
-sys
-: 
-{type: 1, id: 9176, country: 'IN', sunrise: 1775003246, sunset: 1775047973}
-timezone
-: 
-19800
-visibility
-: 
-5000
-weather
-: 
-Array(1)
-0
-: 
-{id: 721, main: 'Haze', description: 'haze', icon: '50n'}
-length
-: 
-1
-[[Prototype]]
-: 
-Array(0)
-wind
-: 
-{speed: 2.57, deg: 330}
-[[Prototype]]
-: 
-Object
+// {coord: {…}, weather: Array(1), base: 'stations', main: {…}, visibility: 5000, …}
+// base
+// : 
+// "stations"
+// clouds
+// : 
+// {all: 20}
+// cod
+// : 
+// 200
+// coord
+// : 
+// {lon: 80.9167, lat: 26.85}
+// dt
+// : 
+// 1775053207
+// id
+// : 
+// 1264733
+// main
+// : 
+// feels_like
+// : 
+// 30.49
+// grnd_level
+// : 
+// 992
+// humidity
+// : 
+// 37
+// pressure
+// : 
+// 1006
+// sea_level
+// : 
+// 1006
+// temp
+// : 
+// 30.99
+// temp_max
+// : 
+// 30.99
+// temp_min
+// : 
+// 30.99
+// [[Prototype]]
+// : 
+// Object
+// name
+// : 
+// "Lucknow"
+// sys
+// : 
+// {type: 1, id: 9176, country: 'IN', sunrise: 1775003246, sunset: 1775047973}
+// timezone
+// : 
+// 19800
+// visibility
+// : 
+// 5000
+// weather
+// : 
+// Array(1)
+// 0
+// : 
+// {id: 721, main: 'Haze', description: 'haze', icon: '50n'}
+// length
+// : 
+// 1
+// [[Prototype]]
+// : 
+// Array(0)
+// wind
+// : 
+// {speed: 2.57, deg: 330}
+// [[Prototype]]
+// : 
+// Object
