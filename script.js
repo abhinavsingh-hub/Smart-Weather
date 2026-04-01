@@ -70,7 +70,7 @@ buttons.forEach((btn) => {
 
 /* Fetch Weather (OpenWeather API) */
 async function fetchWeather(city) {
-  const apiKey = "b516777d63e9b6cdc7f3e77908241b16";
+  const apiKey = API_KEY;
 
   const res = await fetch(
     `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
