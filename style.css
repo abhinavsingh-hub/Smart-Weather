@@ -180,54 +180,54 @@ button:hover {
 }
 
 .sidebar {
-  position: fixed;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 100;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 /* Glass Button */
 .glass-btn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 
-  padding: 12px 18px;
-  border-radius: 16px;
+    padding: 12px 18px;
+    border-radius: 16px;
 
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
 
-  border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 
-  color: white;
-  cursor: pointer;
+    color: white;
+    cursor: pointer;
 
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
 }
 
 /* Hover effect */
 .glass-btn:hover {
-  transform: scale(1.08);
-  background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.08);
+    background: rgba(255, 255, 255, 0.2);
 }
 
 /* Glow effect */
 .glass-btn:hover i {
-  text-shadow: 0 0 10px white;
+    text-shadow: 0 0 10px white;
 }
 
 /* Icon */
 .glass-btn i {
-  font-size: 18px;
+    font-size: 18px;
 }
 
-#content{
+#content {
     color: black;
     position: fixed;
     top: 50%;
@@ -240,16 +240,16 @@ button:hover {
     left: 40px;
     top: 50%;
     transform: translateY(-50%);
-    width: 300px;
-    padding: 25px;
-    border-radius: 24px;
-
-    background: rgba(255,255,255,0.06);
-    backdrop-filter: blur(25px);
-    border: 1px solid rgba(255,255,255,0.1);
-
-    color: black;
+    width: 320px;
+    padding: 30px;
+    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
     z-index: 20;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    transition: all 0.5s ease;
 }
 
 .wd-top {
@@ -290,7 +290,307 @@ button:hover {
     inset: 0;
     z-index: 2;
     pointer-events: none;
-
     background: transparent;
     transition: background 1s ease;
+}
+
+/* Chat Bubble */
+.chat-bubble {
+    position: fixed;
+    top: 30%;
+    left: 60%;
+    transform: translate(-50%, -100%);
+    z-index: 100;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    opacity: 1;
+    scale: 1;
+}
+
+.chat-bubble.hidden {
+    opacity: 0;
+    scale: 0.8;
+    pointer-events: none;
+}
+
+.bubble-content {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 15px 20px;
+    border-radius: 20px;
+    color: white;
+    max-width: 300px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    line-height: 1.4;
+}
+
+.bubble-tail {
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid rgba(255, 255, 255, 0.1);
+    margin-left: 20px;
+}
+
+/* Chat Input */
+.chat-input-container {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 100;
+    width: 400px;
+}
+
+#chat-input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 12px 20px;
+    border-radius: 12px;
+    color: white;
+    backdrop-filter: blur(10px);
+    outline: none;
+}
+
+#chat-input:focus {
+    border-color: var(--primary-color);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Smart Panel */
+.smart-panel {
+    position: fixed;
+    left: 40px;
+    bottom: 40px;
+    width: 320px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 25px;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.smart-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.smart-item i {
+    font-size: 20px;
+    color: var(--accent-color);
+    width: 30px;
+    text-align: center;
+}
+
+.smart-item span {
+    font-size: 0.75rem;
+    opacity: 0.6;
+    display: block;
+}
+
+.smart-item p {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Forecast Overlay */
+.forecast-overlay {
+    position: fixed;
+    inset: 40px;
+    background: rgba(3, 7, 18, 0.8);
+    backdrop-filter: blur(30px);
+    z-index: 200;
+    border-radius: 32px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.forecast-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.forecast-header h3 {
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+.forecast-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.forecast-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.forecast-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 25px;
+    border-radius: 20px;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1);
+}
+
+.forecast-card:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--primary-color);
+}
+
+.forecast-card .day {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.6;
+    margin-bottom: 10px;
+}
+
+.forecast-card i {
+    font-size: 2.5rem;
+    margin: 15px 0;
+    color: var(--accent-color);
+}
+
+.forecast-card .temp {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Search Overlay */
+.search-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(3, 7, 18, 0.6);
+    backdrop-filter: blur(15px);
+    z-index: 2000;
+    /* Max priority */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.search-modal {
+    width: 440px;
+    padding: 40px;
+    position: relative;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 32px;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+    animation: modalPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modalPop {
+    from {
+        transform: scale(0.9) translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
+.search-modal h3 {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    font-weight: 800;
+    color: white;
+}
+
+.error-msg {
+    color: #ff4d4d;
+    background: rgba(255, 77, 77, 0.1);
+    padding: 10px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid rgba(255, 77, 77, 0.2);
+}
+
+.search-box {
+    display: flex;
+    gap: 12px;
+}
+
+.search-box input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 16px 24px;
+    border-radius: 16px;
+    color: white;
+    outline: none;
+    font-size: 1.1rem;
+}
+
+.search-box input:focus {
+    border-color: var(--primary-color);
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.search-box button {
+    padding: 0 20px;
+    background: var(--primary-color);
+    border-radius: 16px;
+    font-size: 1.2rem;
+}
+
+#my-location-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#my-location-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: white;
+}
+
+.close-search {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: white;
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+.close-search:hover {
+    opacity: 1;
+    transform: rotate(90deg);
 }

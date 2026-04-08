@@ -4,6 +4,9 @@
   "description": "### Project Overview The Smart City Weather Dashboard is an interactive web application that provides real-time weather data along with intelligent lifestyle suggestions.",
   "main": "script.js",
   "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

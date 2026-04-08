@@ -6,6 +6,7 @@
     <title>Smart Weather Dashboard | Interactive 3D Bot</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌤️</text></svg>">
 </head>
 <body>
     <div id="loader">
@@ -22,8 +23,8 @@
         <nav>
             <ul>
                 <li><a href="#" class="active">HOME</a></li>
-                <li><a href="#">FORECAST</a></li>
-                <li><a href="#">SETTINGS</a></li>
+                <!-- <li><a href="#">FORECAST</a></li>
+                <li><a href="#">SETTINGS</a></li> -->
             </ul>
         </nav>
     </header>
@@ -49,9 +50,11 @@
   <div id="search-overlay" class="search-overlay hidden">
     <div class="search-modal glass-panel">
         <h3>Find Your City</h3>
+        <p id="search-error" class="error-msg hidden"></p>
         <div class="search-box">
             <input type="text" id="city-search-input" placeholder="e.g. New York, Tokyo...">
-            <button id="city-search-btn"><i class="fa-solid fa-location-arrow"></i></button>
+            <button id="city-search-btn" title="Search"><i class="fa-solid fa-location-arrow"></i></button>
+            <button id="my-location-btn" title="Use current location"><i class="fa-solid fa-map-pin"></i></button>
         </div>
         <button class="close-search"><i class="fa-solid fa-xmark"></i></button>
     </div>
@@ -143,7 +146,7 @@
     <div id="bg-overlay"></div>
     <div id="content" style="z-index: 2;"></div>
 
-    <script src="config.js"></script>
+
     <script type="module" src="script.js"></script>
 </body>
 </html>
