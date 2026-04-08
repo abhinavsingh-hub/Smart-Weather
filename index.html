@@ -45,37 +45,103 @@
     </button>
   </div>
 
-<div class="weather-dashboard" id="weatherDashboard">
-  
-  <div class="wd-top">
-    <h2 id="city">--</h2>
-    <p id="date"></p>
-  </div>
-
-  <div class="wd-main">
-    <i id="weatherIcon" class="fa-solid fa-cloud"></i>
-    <h1 id="temp">--°C</h1>
-    <p id="condition">--</p>
-  </div>
-
-  <div class="wd-extra">
-    <div>
-      <span>Feels</span>
-      <p id="feels"></p>
-    </div>
-    <div>
-      <span>Humidity</span>
-      <p id="humidity"></p>
-    </div>
-    <div>
-      <span>Wind</span>
-      <p id="wind"></p>
+  <!-- Search UI Overlay -->
+  <div id="search-overlay" class="search-overlay hidden">
+    <div class="search-modal glass-panel">
+        <h3>Find Your City</h3>
+        <div class="search-box">
+            <input type="text" id="city-search-input" placeholder="e.g. New York, Tokyo...">
+            <button id="city-search-btn"><i class="fa-solid fa-location-arrow"></i></button>
+        </div>
+        <button class="close-search"><i class="fa-solid fa-xmark"></i></button>
     </div>
   </div>
 
-</div>
-<div id="bg-overlay"></div>
-  <div id="content" style="z-index: 2;"></div>
+    <div class="weather-dashboard" id="weatherDashboard">
+      <div class="wd-top">
+        <h2 id="city">--</h2>
+        <p id="date"></p>
+      </div>
+
+      <div class="wd-main">
+        <i id="weatherIcon" class="fa-solid fa-cloud"></i>
+        <h1 id="temp">--°C</h1>
+        <p id="condition">--</p>
+      </div>
+
+      <div class="wd-extra">
+        <div>
+          <span>Feels</span>
+          <p id="feels"></p>
+        </div>
+        <div>
+          <span>Humidity</span>
+          <p id="humidity"></p>
+        </div>
+        <div>
+          <span>Wind</span>
+          <p id="wind"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Chat Bubble Overlay -->
+    <div id="ai-chat-bubble" class="chat-bubble hidden">
+        <div class="bubble-content">
+            <p id="ai-response">Hello! I'm your weather assistant. Ask me anything!</p>
+        </div>
+        <div class="bubble-tail"></div>
+    </div>
+
+    <!-- Chat Input Area -->
+    <div class="chat-input-container">
+        <input type="text" id="chat-input" placeholder="Ask the bot about weather...">
+        <button id="send-btn"><i class="fa-solid fa-paper-plane"></i></button>
+    </div>
+
+    <!-- Smart Suggestions Panel -->
+    <div id="smart-panel" class="smart-panel hidden">
+        <div class="smart-item" id="suggestion-wear">
+            <i class="fa-solid fa-shirt"></i>
+            <div>
+                <span>What to Wear</span>
+                <p>--</p>
+            </div>
+        </div>
+        <div class="smart-item" id="suggestion-carry">
+            <i class="fa-solid fa-briefcase"></i>
+            <div>
+                <span>What to Carry</span>
+                <p>--</p>
+            </div>
+        </div>
+        <div class="smart-item" id="suggestion-mood">
+            <i class="fa-solid fa-face-smile"></i>
+            <div>
+                <span>Weather Mood</span>
+                <p>--</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forecast Overlay -->
+    <div id="forecast-overlay" class="forecast-overlay hidden">
+        <div class="forecast-header">
+            <h3>5-Day Forecast</h3>
+            <div class="forecast-controls">
+                <button id="filter-rainy">Rainy Only</button>
+                <button id="sort-temp">Sort Temp</button>
+                <span id="avg-temp">Avg: --°C</span>
+            </div>
+            <button class="close-forecast"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div id="forecast-cards" class="forecast-cards">
+            <!-- Cards will be injected here -->
+        </div>
+    </div>
+
+    <div id="bg-overlay"></div>
+    <div id="content" style="z-index: 2;"></div>
 
     <script src="config.js"></script>
     <script type="module" src="script.js"></script>
