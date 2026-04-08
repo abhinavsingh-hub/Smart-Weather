@@ -1,122 +1,25 @@
-### 🌦️ Smart City Weather Dashboard
+# 🌦️ Smart Weather Dashboard | AI-Powered 3D Experience
 
-### Project Overview
-The Smart City Weather Dashboard is an interactive web application that provides real-time weather data along with intelligent lifestyle suggestions.
+A high-fidelity, interactive weather dashboard featuring a 3D Spline bot, real-time weather analytics, and an AI assistant powered by Llama 3.1.
 
-Unlike traditional weather apps, this dashboard not only shows temperature and forecasts but also gives practical advice such as:
-- What to wear 
-- What to carry 
-- Overall weather mood 
+## ✨ Features
+- **🤖 Interactive 3D Bot**: A responsive Spline-based character that reacts to the environment.
+- **💬 AI Chat Assistant**: Ask about the weather or get lifestyle suggestions via an integrated LLM (Llama 3.1).
+- **📅 5-Day Forecast**: Visual weather cards with temperature sorting and rainy-day filtering.
+- **💡 Smart Suggestions**: AI-driven "What to Wear", "What to Carry", and "Weather Mood" recommendations.
+- **🔍 Aesthetic Search**: A custom glassmorphic overlay for city searching with location-aware support.
+- **🌓 Adaptive Themes**: Automatic Day/Night mode and temperature-aware background transitions.
 
-The application focuses on combining data with user experience through dynamic UI and animations.
+## 🚀 Tech Stack
+- **Frontend**: Vanilla JS, HTML, CSS (Glassmorphism)
+- **3D Engine**: Spline
+- **APIs**: OpenWeather API, Hugging Face Router (Llama 3.1)
+- **Deployment**: Vercel
 
----
+## 🛠️ Setup
+1. Clone the repository.
+2. Add your `API_KEY` and `HF_TOKEN` from `config.js` or use environment variables.
+3. Run `npm run dev` to start the local development server.
 
-### Objective
-The goal of this project is to demonstrate:
-- JavaScript fundamentals
-- API integration using `fetch`
-- Use of array higher-order functions (map, filter, sort, reduce)
-- Responsive and dynamic UI design
-
----
-
-### Public API Used
-- OpenWeatherMap API  
-  https://openweathermap.org/api
-
-This API provides:
-- Current weather data
-- 5-day / 3-hour forecast data
-- Weather conditions (rain, temperature, humidity, wind, etc.)
-
----
-
-### Features
-
-### Core Features
-- Search weather by city name
-- Display current weather conditions
-- Show 5-day weather forecast
-- Dynamic weather icons
-
----
-
-### Smart Features
-- “What to Wear” suggestions based on temperature
-- “What to Carry” suggestions (umbrella, sunscreen, etc.)
-- “Weather Mood” system (e.g., Rain → Calm, Sunny → Energetic)
-- Feels-like vs actual temperature comparison
-
----
-
-### Data Handling Features
-- Filter forecast (e.g., only rainy days)
-- Sort temperatures (ascending/descending)
-- Calculate average temperature using `reduce()`
-
----
-
-### UI & Dynamic Features
-- Background color changes based on temperature
-- Day/Night mode based on time
-- Smooth transitions and animations
-- Interactive forecast cards (hover effects)
-- The landing page is inspired and customised on spline using its 3D space
-  <img width="1512" height="982" alt="Screenshot 2026-04-01 at 11 54 39 PM" src="https://github.com/user-attachments/assets/c089f6a6-727e-45ae-80e9-4cbd3a814afd" />
-
-
----
-
-### Advanced Feature
-- Detect user's location using Geolocation API
-- Automatically load local weather
-
----
-
-### Additional Features (Planned)
-- Save favorite cities using localStorage
-- Weather insights (e.g., hottest day, rain alerts)
-- Animated weather effects (rain, snow, sun)
-
----
-
-### Technologies Used
-- HTML
-- CSS (or Tailwind / Bootstrap)
-- JavaScript (Vanilla JS)
-- OpenWeatherMap API
-- Spline 3D
-
----
-
-## Project Structure
-project-folder/
-│── index.html
-│── style.css
-│── script.js
-│── README.md
-
-additional modules and nodes are added to read .spline file
-
----
-
-## How to Run the Project
-
-1. Clone the repository: http://github.com/abhinavsingh-hub/Smart-Weather
-
-
-2. Open the project folder
-
-3. Open `index.html` in your browser
-
----
-
-## 🔑 Setup Requirements
-
-- Generate an API key from OpenWeatherMap:
-  https://home.openweathermap.org/users/sign_up
-
-- Replace the API key in `script.js`:
-```javascript
-const API_KEY = "YOUR_API_KEY_HERE";
+## 📄 License
+MIT
