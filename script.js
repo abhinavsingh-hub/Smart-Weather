@@ -91,9 +91,21 @@ async function getBotResponse(userMsg) {
     else showBubble("Oops! I hit a snag.");
 }
 
+let bubbleTimeout;
+
 function showBubble(text) {
     aiResponse.innerText = text;
     aiBubble.classList.remove("hidden");
+
+    // Clear any existing timeout
+    if (bubbleTimeout) clearTimeout(bubbleTimeout);
+
+    // Auto-hide after 10 seconds (if not still "Thinking...")
+    if (text !== "Thinking...") {
+        bubbleTimeout = setTimeout(() => {
+            aiBubble.classList.add("hidden");
+        }, 30000);
+    }
 }
 
 /* --- Weather Logic (Open-Meteo) --- */

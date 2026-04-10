@@ -369,22 +369,40 @@ button:hover {
 .bubble-content {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgb(247, 247, 247);
     padding: 15px 20px;
     border-radius: 20px;
-    color: white;
-    max-width: 300px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    line-height: 1.4;
+    color: rgb(104, 103, 103);
+    max-width: 350px;
+    max-height: 250px;
+    /* Overflow handling */
+    overflow-y: auto;
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3), 0 10px 30px rgba(0, 0, 0, 0.5);
+    line-height: 1.6;
+    font-size: 0.95rem;
+    position: relative;
+    /* clip-path: polygon(0 0, 100% 0, 100% 90%, 95% 100%, 0 100%); */
+    /* Tech-cut corner */
+}
+
+/* Custom scroller for robotic bubble */
+.bubble-content::-webkit-scrollbar {
+    width: 4px;
+}
+
+.bubble-content::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 2px;
 }
 
 .bubble-tail {
     width: 0;
     height: 0;
-    border-left: 15px solid transparent;
-    border-right: 15px solid transparent;
-    border-top: 15px solid rgba(255, 255, 255, 0.1);
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid var(--primary-color);
     margin-left: 20px;
+    opacity: 0.8;
 }
 
 /* Chat Input */
