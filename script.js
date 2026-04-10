@@ -1,7 +1,6 @@
 import { Application } from '@splinetool/runtime';
 
 // Use environment variables or global constants
-const API_KEY = import.meta.env.VITE_API_KEY || "";
 const HF_TOKEN = import.meta.env.VITE_HF_TOKEN || "";
 
 const canvas = document.getElementById('canvas3d');
@@ -14,15 +13,29 @@ app.load('./r_4_x_bot.splinecode')
         console.log('Spline scene loaded!');
     });
 
-/* Weather icon mapping */
-const weatherIcons = {
-    Clear: "fa-sun",
-    Clouds: "fa-cloud",
-    Rain: "fa-cloud-rain",
-    Thunderstorm: "fa-bolt",
-    Snow: "fa-snowflake",
-    Mist: "fa-smog",
-    Haze: "fa-smog",
+/* Weather interpretation and icon mapping (WMO codes) */
+const WMO_MAPPING = {
+    0: { main: "Clear", icon: "fa-sun", class: "sunny" },
+    1: { main: "Clouds", icon: "fa-cloud-sun", class: "sunny" },
+    2: { main: "Clouds", icon: "fa-cloud", class: "cloudy" },
+    3: { main: "Clouds", icon: "fa-cloud", class: "cloudy" },
+    45: { main: "Mist", icon: "fa-smog", class: "cloudy" },
+    48: { main: "Mist", icon: "fa-smog", class: "cloudy" },
+    51: { main: "Rain", icon: "fa-cloud-rain", class: "rainy" },
+    53: { main: "Rain", icon: "fa-cloud-rain", class: "rainy" },
+    55: { main: "Rain", icon: "fa-cloud-rain", class: "rainy" },
+    61: { main: "Rain", icon: "fa-cloud-showers-heavy", class: "rainy" },
+    63: { main: "Rain", icon: "fa-cloud-showers-heavy", class: "rainy" },
+    65: { main: "Rain", icon: "fa-cloud-showers-heavy", class: "rainy" },
+    71: { main: "Snow", icon: "fa-snowflake", class: "cloudy" },
+    73: { main: "Snow", icon: "fa-snowflake", class: "cloudy" },
+    75: { main: "Snow", icon: "fa-snowflake", class: "cloudy" },
+    80: { main: "Rain", icon: "fa-cloud-rain", class: "rainy" },
+    81: { main: "Rain", icon: "fa-cloud-rain", class: "rainy" },
+    82: { main: "Rain", icon: "fa-cloud-rain", class: "rainy" },
+    95: { main: "Thunderstorm", icon: "fa-bolt", class: "stormy" },
+    96: { main: "Thunderstorm", icon: "fa-bolt", class: "stormy" },
+    99: { main: "Thunderstorm", icon: "fa-bolt", class: "stormy" },
 };
 
 let forecastData = [];
@@ -83,35 +96,56 @@ function showBubble(text) {
     aiBubble.classList.remove("hidden");
 }
 
-/* --- Weather Logic --- */
+/* --- Weather Logic (Open-Meteo) --- */
 
 async function updateAllWeather(city) {
     if (!city || !city.trim()) return;
     searchError.classList.add("hidden");
 
     try {
-        const currentRes = await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city.trim())}&appid=${API_KEY}&units=metric`
-        );
-        const currentData = await currentRes.json();
+        // 1. Geocoding: City to Lat/Lon
+        const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city.trim())}&count=1&language=en&format=json`);
+        const geoData = await geoRes.json();
 
-        if (currentRes.status !== 200) {
+        if (!geoData.results || geoData.results.length === 0) {
             searchError.innerText = `City not found: "${city}"`;
             searchError.classList.remove("hidden");
             return;
         }
 
+        const { latitude, longitude, name } = geoData.results[0];
+
+        // 2. Fetch Weather & Forecast
+        const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto`;
+        const weatherRes = await fetch(weatherUrl);
+        const data = await weatherRes.json();
+
+        const currentData = {
+            name: name,
+            main: {
+                temp: data.current.temperature_2m,
+                feels_like: data.current.apparent_temperature,
+                humidity: data.current.relative_humidity_2m
+            },
+            wind: { speed: data.current.wind_speed_10m },
+            weather: [WMO_MAPPING[data.current.weather_code] || { main: "Clouds", icon: "fa-cloud", class: "cloudy" }]
+        };
+
         updateUI(currentData);
 
-        const forecastRes = await fetch(
-            `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(city.trim())}&appid=${API_KEY}&units=metric`
-        );
-        const data = await forecastRes.json();
-        forecastData = data.list;
+        // Map daily forecast to OWM format for renderForecast
+        forecastData = data.daily.time.map((time, i) => ({
+            dt: new Date(time).getTime() / 1000,
+            main: { temp: (data.daily.temperature_2m_max[i] + data.daily.temperature_2m_min[i]) / 2 },
+            weather: [WMO_MAPPING[data.daily.weather_code[i]] || { main: "Clouds", icon: "fa-cloud", class: "cloudy" }],
+            dt_txt: time // simplified
+        }));
+
         renderForecast(forecastData);
         concludeSmartFeatures(currentData, forecastData);
         searchOverlay.classList.add("hidden");
     } catch (err) {
+        console.error(err);
         searchError.innerText = "Network error. Try again.";
         searchError.classList.remove("hidden");
     }
@@ -120,16 +154,16 @@ async function updateAllWeather(city) {
 function updateUI(data) {
     if (!data.main) return;
 
-    const weather = data.weather[0].main;
+    const weather = data.weather[0];
     document.getElementById("city").innerText = data.name;
     document.getElementById("temp").innerText = `${Math.round(data.main.temp)}°C`;
-    document.getElementById("condition").innerText = weather;
+    document.getElementById("condition").innerText = weather.main;
 
     document.getElementById("feels").innerText = `${Math.round(data.main.feels_like)}°C`;
     document.getElementById("humidity").innerText = `${data.main.humidity}%`;
     document.getElementById("wind").innerText = `${data.wind.speed} m/s`;
 
-    const icon = weatherIcons[weather] || "fa-cloud";
+    const icon = weather.icon || "fa-cloud";
     document.getElementById("weatherIcon").className = `fa-solid ${icon}`;
 
     updateBackground(data.main.temp, weather);
@@ -182,12 +216,14 @@ function renderForecast(list) {
     const container = document.getElementById("forecast-cards");
     container.innerHTML = "";
 
-    const daily = list.filter(item => item.dt_txt.includes("12:00:00"));
+    // Open-Meteo provides daily data directly, so no need to filter by "12:00"
+    const daily = list.length > 7 ? list.filter(item => item.dt_txt.includes("12:00:00")) : list;
 
     daily.forEach(item => {
         const date = new Date(item.dt * 1000);
         const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
-        const icon = weatherIcons[item.weather[0].main] || "fa-cloud";
+        const weatherInfo = item.weather[0];
+        const icon = weatherInfo.icon || "fa-cloud";
 
         const card = document.createElement("div");
         card.className = "forecast-card";
@@ -195,7 +231,7 @@ function renderForecast(list) {
             <div class="day">${dayName}</div>
             <i class="fa-solid ${icon}"></i>
             <div class="temp">${Math.round(item.main.temp)}°C</div>
-            <div class="desc">${item.weather[0].main}</div>
+            <div class="desc">${weatherInfo.main}</div>
         `;
         container.appendChild(card);
     });
@@ -274,21 +310,24 @@ document.getElementById("sort-temp").addEventListener("click", () => {
 
 /* --- Visual Effects --- */
 
-function updateBackground(temp, weather) {
+function updateBackground(temp, weatherObj) {
     const overlay = document.getElementById("bg-overlay");
+    if (!overlay) return;
+
+    // Remove old classes
+    overlay.className = "";
+
+    // Add new class based on weather condition
+    const weatherClass = weatherObj.class || "cloudy";
+    overlay.classList.add(weatherClass);
+
+    // Apply temperature-based tint (subtle)
     let color = "rgba(0,0,0,0)";
-    if (temp < 10) color = "rgba(0, 150, 255, 0.2)";
-    else if (temp > 25) color = "rgba(255, 100, 0, 0.2)";
-    else color = "rgba(100, 255, 100, 0.1)";
+    if (temp < 10) color = "rgba(0, 150, 255, 0.1)";
+    else if (temp > 25) color = "rgba(255, 100, 0, 0.1)";
 
-    const themes = {
-        Clear: "radial-gradient(circle at center, rgba(255,200,0,0.15), transparent 70%)",
-        Clouds: "radial-gradient(circle, rgba(200,200,200,0.1), transparent 70%)",
-        Rain: "radial-gradient(circle, rgba(0,100,255,0.2), transparent 70%)",
-    };
-
-    const gradient = themes[weather] || "transparent";
-    overlay.style.background = `${color}, ${gradient}`;
+    overlay.style.backgroundColor = color;
+    overlay.style.background = ""; // clear gradient
 }
 
 function updateDayNightMode(sys) {
@@ -310,11 +349,37 @@ function getUserLocation() {
 }
 
 async function fetchByCoords(lat, lon) {
-    const res = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
-    );
-    const data = await res.json();
-    updateAllWeather(data.name);
+    try {
+        const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto`;
+        const weatherRes = await fetch(weatherUrl);
+        const data = await weatherRes.json();
+
+        // Use reverse geocoding or just generic name
+        const currentData = {
+            name: "Your Location",
+            main: {
+                temp: data.current.temperature_2m,
+                feels_like: data.current.apparent_temperature,
+                humidity: data.current.relative_humidity_2m
+            },
+            wind: { speed: data.current.wind_speed_10m },
+            weather: [WMO_MAPPING[data.current.weather_code] || { main: "Clouds", icon: "fa-cloud", class: "cloudy" }]
+        };
+
+        updateUI(currentData);
+
+        forecastData = data.daily.time.map((time, i) => ({
+            dt: new Date(time).getTime() / 1000,
+            main: { temp: (data.daily.temperature_2m_max[i] + data.daily.temperature_2m_min[i]) / 2 },
+            weather: [WMO_MAPPING[data.daily.weather_code[i]] || { main: "Clouds", icon: "fa-cloud", class: "cloudy" }],
+            dt_txt: time
+        }));
+
+        renderForecast(forecastData);
+        concludeSmartFeatures(currentData, forecastData);
+    } catch (err) {
+        updateAllWeather("Lucknow");
+    }
 }
 
 getUserLocation();

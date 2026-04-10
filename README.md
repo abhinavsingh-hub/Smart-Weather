@@ -22,13 +22,14 @@ The goal of this project is to demonstrate:
 ---
 
 ### Public API Used
-- OpenWeatherMap API  
-  https://openweathermap.org/api
+- **Open-Meteo API** (Weather & Geocoding)  
+  https://open-meteo.com/
 
 This API provides:
 - Current weather data
-- 5-day / 3-hour forecast data
+- 7-day weather forecast
 - Weather conditions (rain, temperature, humidity, wind, etc.)
+- **No API key required** for non-commercial use!
 
 ---
 

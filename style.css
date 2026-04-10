@@ -291,7 +291,61 @@ button:hover {
     z-index: 2;
     pointer-events: none;
     background: transparent;
-    transition: background 1s ease;
+    transition: all 1s ease;
+}
+
+/* Weather Effects */
+#bg-overlay.sunny {
+    background: radial-gradient(circle at 50% -20%, rgba(255, 255, 0, 0.15), transparent 70%),
+        radial-gradient(circle at 100% 0%, rgba(255, 200, 0, 0.1), transparent 50%);
+    box-shadow: inset 0 0 100px rgba(255, 255, 0, 0.05);
+}
+
+#bg-overlay.rainy {
+    background: linear-gradient(to bottom, rgba(0, 5, 15, 0.7), rgba(10, 20, 40, 0.5));
+}
+
+#bg-overlay.rainy::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+    opacity: 0.3;
+    animation: rain 0.5s linear infinite;
+}
+
+@keyframes rain {
+    0% {
+        transform: translateY(-50px);
+    }
+
+    100% {
+        transform: translateY(50px);
+    }
+}
+
+#bg-overlay.cloudy {
+    background: radial-gradient(circle at center, rgba(100, 100, 100, 0.2), transparent 80%);
+}
+
+#bg-overlay.stormy {
+    background: linear-gradient(to bottom, #000, #1a1a2e);
+    animation: lightning 5s isolation;
+}
+
+@keyframes lightning {
+
+    0%,
+    95%,
+    98% {
+        opacity: 1;
+    }
+
+    96%,
+    99% {
+        opacity: 0.8;
+        background: #fff;
+    }
 }
 
 /* Chat Bubble */
