@@ -6,7 +6,7 @@
     --bg-color: #030712;
     --glass-bg: rgba(255, 255, 255, 0.03);
     --glass-border: rgba(255, 255, 255, 0.08);
-    --text-color: #f1f5f9;
+    --text-color: #585656;
 }
 
 * {
@@ -204,7 +204,7 @@ button:hover {
 
     border: 1px solid rgba(255, 255, 255, 0.2);
 
-    color: white;
+    color: #585656;
     cursor: pointer;
 
     transition: all 0.3s ease;
@@ -238,7 +238,7 @@ button:hover {
 .weather-dashboard {
     position: fixed;
     left: 40px;
-    top: 50%;
+    top: 45%;
     transform: translateY(-50%);
     width: 320px;
     padding: 30px;
@@ -246,7 +246,7 @@ button:hover {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    color: white;
+    color: #585656;
     z-index: 20;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
     transition: all 0.5s ease;
